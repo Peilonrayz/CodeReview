@@ -1,5 +1,5 @@
 # Purpose
-This repository is designed to hold common/reoccurring topics that come up in code reviews.
+This repository is designed to hold common/reoccurring topics that come up in code reviews. See: [Common Review Quotes](https://codereview.meta.stackexchange.com/questions/7230/common-review-quotes) there was no consensus or good ideas on how to proceed. So I am taking the opportunity to try a couple of experiments and see if there is a good way to achieve this goal.
 
 # Layout
     README.md           This file

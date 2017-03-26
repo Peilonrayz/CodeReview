@@ -13,7 +13,7 @@ There are C++ equivalent for these headers.
     #include <cstring>
 Note most C headers `<HEAD.h>` have a C++ equivalent `<cHEAD>`.
 
-By using the C++ version of these headers you put all the functionality they provide in the `std` namespace. If you use the C version of the header file the functional be placed in the global namespace.
+By using the C++ version of these headers you put all the functionality they provide in the `std` namespace. If you use the C version of the header file the functionality be placed in the global namespace.
 
 Here is a list of C headers that are deprecated in C++ in favor of the C++ version `<cHEAD>`:
 
