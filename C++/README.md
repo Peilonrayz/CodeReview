@@ -1,7 +1,7 @@
-# Purpose
+# Purpose:
 This will be used to hold generic descriptions about common issues that are observed in many C++ code reviews.
 
-# First Pass
+# First Pass:
 This section is still under heavy review/development (and may result in some arguments). Any discussions we have we will capture in chat rooms and link to these from this page so that we capture these discussions and hopefully their resolution.
 
 # Icons:
@@ -12,7 +12,7 @@ This section is still under heavy review/development (and may result in some arg
 
 
 
-# Content
+# Content:
 * Tricks that will Help
   * <img src="/images/help.png" width="20" height="20">Enable compiler warnings.
 * Common bad C practices
