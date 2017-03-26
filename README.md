@@ -21,4 +21,4 @@ Note:
 
 # Table of Content
 
-* [C++][C++/README.md]
+* [C++](C++/README.md)
