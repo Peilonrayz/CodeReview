@@ -22,7 +22,7 @@ This section is still under heavy review/development (and may result in some arg
 * Syntax
   * <img src="/images/help.png" width="20" height="20">Common Bracing Styles
 * Style
-  * <img src="/images/pencil.png" width="20" height="20">Using namespace `std`;
+  * <img src="/images/checkmark.png" width="20" height="20">[Using namespace `std`](UsingNamespaceStd.md)
   * <img src="/images/help.png" width="20" height="20">Using in general
   * <img src="/images/help.png" width="20" height="20">Identifiers (With underscore)
   * Identifiers (Common Styles) 
@@ -44,7 +44,7 @@ This section is still under heavy review/development (and may result in some arg
   * <img src="/images/help.png" width="20" height="20">Swap member and friend
 * Ownership
   * [<img src="/images/pencil.png" width="20" height="20">](http://codereview.stackexchange.com/users/507/loki-astari) Defining Ownership semantics
-  * <img src="/images/pencil.png" width="20" height="20">Use of new/delete
+  * <img src="/images/checkmark.png" width="20" height="20">[Use of new/delete](UsageOfNewDelete.md)
 * Contentious Subjects
   * <img src="/images/help.png" width="20" height="20">Commenting
 
