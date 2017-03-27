@@ -1,17 +1,13 @@
 # When to use new/delete
-It is pretty common for beginners to allocate everything in the free store (also called heap, by calling `new` or `malloc()` or similar), but is there a better way? One should always try to make the best choice.
 
-## Performance
-Currently most allocators are so complex that it becomes harder and harder to predict if the next allocation will be a system call, which will probably have an implicit mutex lock (it needs to acquire memory from the system which is shared, so there will be some overhead to manage it). Though it is *guaranteed* that creating variable in the automatic storage (also known as stack) will certainly be faster, plus programmer don't need to `free()` or `delete` it since automatic storage automatically runs destructors and reclaims the memory. 
-Dynamic allocation also has a performance hit from fragmentation, e.g. the automatic storage in which some bookkeeping is stored (instructions) is usually further from the free store, which can be literally anywhere. Fragmentation leads to [cache misses](http://stackoverflow.com/questions/18559342/what-is-a-cache-hit-and-a-cache-miss-why-context-switching-would-cause-cache-mi).
+`new`, `delete` and array forms are used to perform dynamic memory management. `new` and `new[]` run constructors on newly allocated objects, while `delete` and `delete[]` run destructors on deallocated objects.
 
-## Ease of use
-It is much harder to get program that does dynamic allocation to get correct compared to program that primarily uses automatic storage. 
+`new`, `delete` and their array counterparts were the most obvious choice to do dynamic memory allocation in C++98/03. Even though they solve type safety problems stemming from `malloc()`, they don't solve another, more serious problem: ownership. As a result, the following problems are introduced:
 
 ### Memory leak
 The problem lies in obligation of dynamic memory allocation: programmer *must* free it after it is done, otherwise program will have [memory leak](https://en.wikipedia.org/wiki/Memory_leak). There are multiple solutions to deal with this:
 
- - Smart pointers
+ - Standard smart pointers, paired with `std::make_xxx<type>()`
  - Standard Containers
  - Garbage Collection
  - General RAII
@@ -26,8 +22,9 @@ Dangling pointers (or any reference to "dead" object) are pointers to object on 
 
 Smart pointers might have some performance impact, but standard library maintainers are trying their best to make it cost the same as handwritten version.
 
-### RAII
-RAII (resource aquisition is initialization) is an idiom used to prevent resource leaks (resource includes memory, file handlers, mutexes, etc). It can also be applied to the dynamic allocation:
+###Example:
+
+To show that the problems are not so distant, lets consider the following example:
 
     class data
     {
@@ -57,8 +54,16 @@ RAII (resource aquisition is initialization) is an idiom used to prevent resourc
 
 The example above clearly shows that most of the time standard containers (like `std::vector<>`) are better suited for memory management than handwritten version, since they have automatic memory management which guarantees no memory leaks even in exceptional situations. 
 
-## Caveats of automatic storage
-It is usually very small (on Windows, it is around 1MB), also it stores bookkeeping there. This means that allocating too much automatic storage will shorten recursion depth or any other deep function calls. g++ tries to increase automatic storage size, but it is not always possible. In general, size and lack of automatic storage is implementation defined. There is a well known exploit called buffer overflow. Exceeding automatic storage size will cause stack overflow, which is a type of buffer overflow.
+Also, since there is no copy constructor that would perform deep copy, implicit copy constructor will perform shallow copy, which will make pointers dangling if copied from object will go out of scope earlier than the copied to object.
+
+## Superior solution
+
+C++ also has automatic storage (sometimes referred to as stack), which is the storage used in function scopes. It automatically runs constructors on declared objects and runs destructors if function returns (either normal or exceptional path), and reclaims memory. Thus, automatic storage should be preferred whenever possible. The only reasons to use dynamic memory allocations are when object is too big (usually stack provided by system is small) and when object needs to outlive current function Further reading on SO: [Why should I use a pointer rather than the object itself?](http://stackoverflow.com/questions/22146094/why-should-i-use-a-pointer-rather-than-the-object-itself?rq=1), [Why should C++ programmer minimize use of `new`](http://stackoverflow.com/questions/6500313/why-should-c-programmers-minimize-use-of-new?rq=1).
+
+## Performance
+
+Performance of `new`, `delete` and their array counterparts is usually implementation dependant, thus it is out of scope of the article. Some of the questions from SO cover a bit of performance.
+
 
 ## Summary
 Always prefer automatic storage to dynamic allocation. If free store allocation is needed, use dedicated containers or smart pointers. Always nail down ownership semantics. Use raw pointers to indicate no ownership.
