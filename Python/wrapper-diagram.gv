@@ -1,0 +1,46 @@
+digraph linters {
+  overlap=false;
+  ratio=auto;
+ 
+  Coala -> {
+    bandit
+    mypy
+    autopep8
+    eradicate
+    isort
+    pylint
+    autoflake
+    pyroma
+    radon
+    vulture
+    yapf
+  }
+
+  Prospector -> {
+    pylint
+    mccabe
+    dodgy
+    pyroma
+    vulture
+    frosted
+    mypy
+    bandit
+  }
+
+  Pylama -> {
+    mccabe
+    pylint
+    radon
+    gjslint
+    eradicate
+  }
+
+  flake8 -> {
+    bandit
+    eradicate
+    mypy
+    isort
+    mccabe
+    radon
+  }
+}
